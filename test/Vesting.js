@@ -124,7 +124,7 @@ contract("Vesting", async accounts =>{
 
         await token20.approve(vestingContract.address, PAID_AMOUNT, {from: accounts[0]});
 
-//        let estimatedGas = await vestingContract.addPlan.estimateGas(accounts[2], starBlock, endBlock, token20.address, new BN('1000000000000000000'), {from: accounts[0]});
+//        let estimatedGas = await vestingContract.addPlan.estimateGas(accounts[2], starBlock, endBlock, token20.address, PAID_AMOUNT, {from: accounts[0]});
 //        console.log( `Estimate Gas addPlan(): ${estimatedGas}` ); 
         
         console.log( "addPlan() from account [0] to [2] >>" );
@@ -165,7 +165,7 @@ contract("Vesting", async accounts =>{
         }
     });
 
-    it("-> addPlan(): Add new plan. Decline. Address to=0x0000000000000000000000000000000000000000", async () => {
+    it("-> addPlan(): Add new plan. Fail. Address to=0x0000000000000000000000000000000000000000", async () => {
         console.log( "\n addPlan() >>" );
 
         console.log(`Balance accounts[0]: ${accounts[0]} = ${await token20.balanceOf(accounts[0])}`);
@@ -188,9 +188,6 @@ contract("Vesting", async accounts =>{
         console.log(`starBlock=${starBlock}, endBlock=${endBlock}, currBlock=${current}`);
 
         await token20.approve(vestingContract.address, PAID_AMOUNT, {from: accounts[0]});
-
-//        let estimatedGas = await vestingContract.addPlan.estimateGas(accounts[2], starBlock, endBlock, token20.address, new BN('1000000000000000000'), {from: accounts[0]});
-//        console.log( `Estimate Gas addPlan(): ${estimatedGas}` ); 
         
         console.log( "addPlan() from account [0] to [NULL_ADDRESS] >>" );
         let resAddPlan = await vestingContract.addPlan(NULL_ADDRESS, starBlock, endBlock, token20.address, PAID_AMOUNT, {from: accounts[0]});
@@ -200,7 +197,7 @@ contract("Vesting", async accounts =>{
         });
     });
 
-    it("-> addPlan(): Add new plan. Decline. End block = 0", async () => {
+    it("-> addPlan(): Add new plan. Fail. End block = 0", async () => {
         console.log( "\n addPlan() >>" );
 
         console.log(`Balance accounts[0]: ${accounts[0]} = ${await token20.balanceOf(accounts[0])}`);
@@ -223,10 +220,7 @@ contract("Vesting", async accounts =>{
         console.log(`starBlock=${starBlock}, endBlock=${endBlock}, currBlock=${current}`);
 
         await token20.approve(vestingContract.address, PAID_AMOUNT, {from: accounts[0]});
-
-//        let estimatedGas = await vestingContract.addPlan.estimateGas(accounts[2], starBlock, endBlock, token20.address, new BN('1000000000000000000'), {from: accounts[0]});
-//        console.log( `Estimate Gas addPlan(): ${estimatedGas}` ); 
-        
+      
         console.log( "addPlan() from account [0] to [2] >>" );
         let resAddPlan = await vestingContract.addPlan(accounts[2], starBlock, endBlock, token20.address, PAID_AMOUNT, {from: accounts[0]});
         truffleAssert.eventEmitted(resAddPlan, 'AddPlan', (ev) => {
@@ -235,7 +229,7 @@ contract("Vesting", async accounts =>{
         });
     });
 
-    it("-> addPlan(): Add new plan. Decline. End block < start block", async () => {
+    it("-> addPlan(): Add new plan. Fail. End block < start block", async () => {
         console.log( "\n addPlan() >>" );
 
         console.log(`Balance accounts[0]: ${accounts[0]} = ${await token20.balanceOf(accounts[0])}`);
@@ -258,10 +252,7 @@ contract("Vesting", async accounts =>{
         console.log(`starBlock=${starBlock}, endBlock=${endBlock}, currBlock=${current}`);
 
         await token20.approve(vestingContract.address, PAID_AMOUNT, {from: accounts[0]});
-
-//        let estimatedGas = await vestingContract.addPlan.estimateGas(accounts[2], starBlock, endBlock, token20.address, new BN('1000000000000000000'), {from: accounts[0]});
-//        console.log( `Estimate Gas addPlan(): ${estimatedGas}` ); 
-        
+       
         console.log( "addPlan() from account [0] to [2] >>" );
         let resAddPlan = await vestingContract.addPlan(accounts[2], starBlock, endBlock, token20.address, PAID_AMOUNT, {from: accounts[0]});
         truffleAssert.eventEmitted(resAddPlan, 'AddPlan', (ev) => {
@@ -270,7 +261,7 @@ contract("Vesting", async accounts =>{
         });
     });
 
-    it("-> addPlan(): Add new plan. Decline. Token address=0x0000000000000000000000000000000000000000", async () => {
+    it("-> addPlan(): Add new plan. Fail. Token address=0x0000000000000000000000000000000000000000", async () => {
         console.log( "\n addPlan() >>" );
 
         console.log(`Balance accounts[0]: ${accounts[0]} = ${await token20.balanceOf(accounts[0])}`);
@@ -293,10 +284,7 @@ contract("Vesting", async accounts =>{
         console.log(`starBlock=${starBlock}, endBlock=${endBlock}, currBlock=${current}`);
 
         await token20.approve(vestingContract.address, PAID_AMOUNT, {from: accounts[0]});
-
-//        let estimatedGas = await vestingContract.addPlan.estimateGas(accounts[2], starBlock, endBlock, token20.address, new BN('1000000000000000000'), {from: accounts[0]});
-//        console.log( `Estimate Gas addPlan(): ${estimatedGas}` ); 
-        
+       
         console.log( "addPlan() from account [0] to [2] >>" );
         let resAddPlan = await vestingContract.addPlan(accounts[2], starBlock, endBlock, NULL_ADDRESS, PAID_AMOUNT, {from: accounts[0]});
         truffleAssert.eventEmitted(resAddPlan, 'AddPlan', (ev) => {
@@ -305,7 +293,7 @@ contract("Vesting", async accounts =>{
         });
     });
 
-    it("-> addPlan(): Add new plan. Decline. Amount=0", async () => {
+    it("-> addPlan(): Add new plan. Fail. Amount=0", async () => {
         console.log( "\n addPlan() >>" );
 
         console.log(`Balance accounts[0]: ${accounts[0]} = ${await token20.balanceOf(accounts[0])}`);
@@ -328,9 +316,6 @@ contract("Vesting", async accounts =>{
         console.log(`starBlock=${starBlock}, endBlock=${endBlock}, currBlock=${current}`);
 
         await token20.approve(vestingContract.address, PAID_AMOUNT, {from: accounts[0]});
-
-//        let estimatedGas = await vestingContract.addPlan.estimateGas(accounts[2], starBlock, endBlock, token20.address, new BN('1000000000000000000'), {from: accounts[0]});
-//        console.log( `Estimate Gas addPlan(): ${estimatedGas}` ); 
         
         console.log( "addPlan() from account [0] to [2] >>" );
         let resAddPlan = await vestingContract.addPlan(accounts[2], starBlock, endBlock, token20.address, new BN('0'), {from: accounts[0]});
@@ -357,7 +342,7 @@ contract("Vesting", async accounts =>{
 
         await token20.approve(vestingContract.address, PAID_AMOUNT, {from: accounts[1]});
 
-//        let estimatedGas = await vestingContract.addPaymentToPlan.estimateGas(accounts[2],  new BN('0'), new BN('1000000000000000000'), {from: accounts[1]});
+//        let estimatedGas = await vestingContract.addPaymentToPlan.estimateGas(accounts[2],  new BN('0'), PAID_AMOUNT, {from: accounts[1]});
 //        console.log( `Estimate Gas addPaymentToPlan(): ${estimatedGas}` ); 
         
         let resAddPlan = await vestingContract.addPaymentToPlan(accounts[2],  new BN('0'), PAID_AMOUNT, {from: accounts[1]});
@@ -379,7 +364,7 @@ contract("Vesting", async accounts =>{
         }
     });
 
-    it("-> addPaymentToPlan(): Add paiment to plan. Decline. Wrong index plan", async () => {
+    it("-> addPaymentToPlan(): Add paiment to plan. Fail. Wrong index plan", async () => {
         console.log( "\n addPaymentToPlan() >>" );
  
         console.log(`Balance accounts[0]: ${accounts[0]} = ${await token20.balanceOf(accounts[0])}`);
@@ -397,9 +382,6 @@ contract("Vesting", async accounts =>{
         let idx = new BN(countPlans+1);
 
         await token20.approve(vestingContract.address, PAID_AMOUNT, {from: accounts[1]});
-
-//        let estimatedGas = await vestingContract.addPaymentToPlan.estimateGas(accounts[2],  new BN('0'), new BN('1000000000000000000'), {from: accounts[1]});
-//        console.log( `Estimate Gas addPaymentToPlan(): ${estimatedGas}` ); 
         
         let resAddPlan = await vestingContract.addPaymentToPlan(accounts[2],  idx, PAID_AMOUNT, {from: accounts[1]});
         truffleAssert.eventEmitted(resAddPlan, 'AddPlan', (ev) => {
@@ -408,7 +390,7 @@ contract("Vesting", async accounts =>{
         });
     });
 
-    it("-> addPaymentToPlan(): Add paiment to plan. Decline. Address to=0x0000000000000000000000000000000000000000", async () => {
+    it("-> addPaymentToPlan(): Add paiment to plan. Fail. Address to=0x0000000000000000000000000000000000000000", async () => {
         console.log( "\n addPaymentToPlan() >>" );
  
         console.log(`Balance accounts[0]: ${accounts[0]} = ${await token20.balanceOf(accounts[0])}`);
@@ -425,9 +407,6 @@ contract("Vesting", async accounts =>{
 
         await token20.approve(vestingContract.address, PAID_AMOUNT, {from: accounts[1]});
 
-//        let estimatedGas = await vestingContract.addPaymentToPlan.estimateGas(accounts[2],  new BN('0'), new BN('1000000000000000000'), {from: accounts[1]});
-//        console.log( `Estimate Gas addPaymentToPlan(): ${estimatedGas}` ); 
-        
         let resAddPlan = await vestingContract.addPaymentToPlan(NULL_ADDRESS,  new BN('0'), PAID_AMOUNT, {from: accounts[1]});
         truffleAssert.eventEmitted(resAddPlan, 'AddPlan', (ev) => {
             console.log(`Result event AddPlan :\n from = ${ev._from},\n to = ${ev._to},\n startBlock = ${new BN(ev._startBlock)},\n endBlock = ${new BN(ev._endBlock)},\n token = ${ev._token},\n amount = ${new BN(ev._amount)}`);
@@ -435,7 +414,7 @@ contract("Vesting", async accounts =>{
         });
     });
 
-    it("-> addPaymentToPlan(): Add paiment to plan. Decline. Amount=0", async () => {
+    it("-> addPaymentToPlan(): Add paiment to plan. Fail. Amount=0", async () => {
         console.log( "\n addPaymentToPlan() >>" );
  
         console.log(`Balance accounts[0]: ${accounts[0]} = ${await token20.balanceOf(accounts[0])}`);
@@ -452,9 +431,6 @@ contract("Vesting", async accounts =>{
 
         await token20.approve(vestingContract.address, PAID_AMOUNT, {from: accounts[1]});
 
-//        let estimatedGas = await vestingContract.addPaymentToPlan.estimateGas(accounts[2],  new BN('0'), new BN('1000000000000000000'), {from: accounts[1]});
-//        console.log( `Estimate Gas addPaymentToPlan(): ${estimatedGas}` ); 
-        
         let resAddPlan = await vestingContract.addPaymentToPlan(accounts[2],  new BN('0'), new BN('0'), {from: accounts[1]});
         truffleAssert.eventEmitted(resAddPlan, 'AddPlan', (ev) => {
             console.log(`Result event AddPlan :\n from = ${ev._from},\n to = ${ev._to},\n startBlock = ${new BN(ev._startBlock)},\n endBlock = ${new BN(ev._endBlock)},\n token = ${ev._token},\n amount = ${new BN(ev._amount)}`);
@@ -501,7 +477,7 @@ contract("Vesting", async accounts =>{
         }
     });
 
-    it("-> redirectPlan(): Redirect paiment. Decline. Wrong index plan", async () => {
+    it("-> redirectPlan(): Redirect paiment. Fail. Wrong index plan", async () => {
         console.log( "\n redirectPlan() >>" );
 
         let countPlans = await vestingContract.getPlanCount(accounts[0]);
@@ -516,9 +492,6 @@ contract("Vesting", async accounts =>{
             let plan = await vestingContract.getPlan(accounts[2], i);
             console.log(`accounts[2] plan[${i}] :\n startBlock=${plan.startBlock},\n endBlock=${plan.endBlock},\n token=${plan.token},\n residualAmount=${plan.residualAmount}`);
         }
-
-//        let estimatedGas = await vestingContract.redirectPlan.estimateGas(new BN('0'), accounts[0], REDIRECT_AMOUNT, {from: accounts[2]});
-//        console.log( `Estimate Gas redirectPlan(): ${estimatedGas}` ); 
 
         let resRedirectPlan = await vestingContract.redirectPlan(new BN(countPlans+1), accounts[0], REDIRECT_AMOUNT, {from: accounts[2]});
         truffleAssert.eventEmitted(resRedirectPlan, 'AddPlan', (ev) => {
@@ -527,7 +500,7 @@ contract("Vesting", async accounts =>{
         });
     });
 
-    it("-> redirectPlan(): Redirect paiment. Decline. Address to=0x0000000000000000000000000000000000000000", async () => {
+    it("-> redirectPlan(): Redirect paiment. Fail. Address to=0x0000000000000000000000000000000000000000", async () => {
         console.log( "\n redirectPlan() >>" );
 
         let countPlans = await vestingContract.getPlanCount(accounts[0]);
@@ -542,9 +515,6 @@ contract("Vesting", async accounts =>{
             let plan = await vestingContract.getPlan(accounts[2], i);
             console.log(`accounts[2] plan[${i}] :\n startBlock=${plan.startBlock},\n endBlock=${plan.endBlock},\n token=${plan.token},\n residualAmount=${plan.residualAmount}`);
         }
-
-//        let estimatedGas = await vestingContract.redirectPlan.estimateGas(new BN('0'), accounts[0], REDIRECT_AMOUNT, {from: accounts[2]});
-//        console.log( `Estimate Gas redirectPlan(): ${estimatedGas}` ); 
 
         let resRedirectPlan = await vestingContract.redirectPlan(new BN('0'), NULL_ADDRESS, REDIRECT_AMOUNT, {from: accounts[2]});
         truffleAssert.eventEmitted(resRedirectPlan, 'AddPlan', (ev) => {
@@ -553,7 +523,7 @@ contract("Vesting", async accounts =>{
         });
     });
 
-    it("-> redirectPlan(): Redirect paiment.  Decline. Amount=0", async () => {
+    it("-> redirectPlan(): Redirect paiment.  Fail. Amount=0", async () => {
         console.log( "\n redirectPlan() >>" );
 
         let countPlans = await vestingContract.getPlanCount(accounts[0]);
@@ -568,9 +538,6 @@ contract("Vesting", async accounts =>{
             let plan = await vestingContract.getPlan(accounts[2], i);
             console.log(`accounts[2] plan[${i}] :\n startBlock=${plan.startBlock},\n endBlock=${plan.endBlock},\n token=${plan.token},\n residualAmount=${plan.residualAmount}`);
         }
-
-//        let estimatedGas = await vestingContract.redirectPlan.estimateGas(new BN('0'), accounts[0], REDIRECT_AMOUNT, {from: accounts[2]});
-//        console.log( `Estimate Gas redirectPlan(): ${estimatedGas}` ); 
 
         let resRedirectPlan = await vestingContract.redirectPlan(new BN('0'), accounts[0], new BN('0'), {from: accounts[2]});
         truffleAssert.eventEmitted(resRedirectPlan, 'AddPlan', (ev) => {
@@ -579,7 +546,7 @@ contract("Vesting", async accounts =>{
         });
     });
 
-    it("-> redirectPlan(): Redirect paiment.  Decline. Amount > residual amount", async () => {
+    it("-> redirectPlan(): Redirect paiment.  Fail. Amount > residual amount", async () => {
         console.log( "\n redirectPlan() >>" );
 
         let countPlans = await vestingContract.getPlanCount(accounts[0]);
@@ -595,8 +562,6 @@ contract("Vesting", async accounts =>{
             console.log(`accounts[2] plan[${i}] :\n startBlock=${plan.startBlock},\n endBlock=${plan.endBlock},\n token=${plan.token},\n residualAmount=${plan.residualAmount}`);
         }
 
-//        let estimatedGas = await vestingContract.redirectPlan.estimateGas(new BN('0'), accounts[0], REDIRECT_AMOUNT, {from: accounts[2]});
-//        console.log( `Estimate Gas redirectPlan(): ${estimatedGas}` ); 
         let plan = await vestingContract.getPlan(accounts[2], 0);
         let _residualAmountPlan = new BN(plan.residualAmount);
         console.log(`acount[2][0].residualAmount = ${_residualAmountPlan}`);
@@ -610,7 +575,7 @@ contract("Vesting", async accounts =>{
         });
     });
 
-    it("-> getCurrentPayment(): Current paiment account[2].  Decline. Current block < start block. The function should return 0", async () => {
+    it("-> getCurrentPayment(): Current paiment account[2].  Fail. Current block < start block. The function should return 0", async () => {
         console.log( "\n getCurrentPayment() >>" );
 
         let countPlans = await vestingContract.getPlanCount(accounts[2]);
@@ -624,7 +589,7 @@ contract("Vesting", async accounts =>{
         console.log(`getCurrentPayment returned : amount = ${new BN(resRedirectPlan)}`);
     });
 
-    it("-> getCurrentPayment(): Current paiment account[2].  Decline. Wrong index. The function should return 0", async () => {
+    it("-> getCurrentPayment(): Current paiment account[2].  Fail. Wrong index. The function should return 0", async () => {
         console.log( "\n getCurrentPayment() >>" );
 
         let countPlans = await vestingContract.getPlanCount(accounts[2]);
@@ -638,13 +603,13 @@ contract("Vesting", async accounts =>{
         console.log(`getCurrentPayment returned : amount = ${new BN(resRedirectPlan)}`);
     });
 
-    it("-> getCurrentPayment(): Current paiment account[1].  Decline. No this address in mapping. The function should return 0", async () => {
+    it("-> getCurrentPayment(): Current paiment account[1].  Fail. No this address in mapping. The function should return 0", async () => {
         console.log( "\n getCurrentPayment() >>" );       
         let resRedirectPlan = await vestingContract.getCurrentPayment(new BN('0'), accounts[1]);
         console.log(`getCurrentPayment account[1] returned : amount = ${new BN(resRedirectPlan)}`);
     });
 
-    it("-> claimPayment(): Claim current payment. Decline. This account has no plans", async () => {
+    it("-> claimPayment(): Claim current payment. Fail. This account has no plans", async () => {
         console.log( "\n claimPayment() >>" );
  
         let current = await time.latestBlock();
@@ -666,9 +631,6 @@ contract("Vesting", async accounts =>{
             let plan = await vestingContract.getPlan(accounts[2], i);
             console.log(`accounts[2] plan[${i}] :\n startBlock=${plan.startBlock},\n endBlock=${plan.endBlock},\n token=${plan.token},\n residualAmount=${plan.residualAmount}`);
         }
-
-//        let estimatedGas = await vestingContract.claimPayment.estimateGas(new BN('0'), {from: accounts[2]});
-//        console.log( `Estimate Gas claimPayment(): ${estimatedGas}` ); 
 
         let resClaimPayment = await vestingContract.claimPayment(new BN('0'), {from: accounts[5]});
         truffleAssert.eventEmitted(resClaimPayment, 'ClaimPayment', (ev) => {
@@ -677,7 +639,7 @@ contract("Vesting", async accounts =>{
         });
     });
 
-    it("-> claimPayment(): Claim current payment. Decline. Current block < start block", async () => {
+    it("-> claimPayment(): Claim current payment. Fail. Current block < start block", async () => {
         console.log( "\n claimPayment() >>" );
  
         let current = await time.latestBlock();
@@ -699,9 +661,6 @@ contract("Vesting", async accounts =>{
             let plan = await vestingContract.getPlan(accounts[2], i);
             console.log(`accounts[2] plan[${i}] :\n startBlock=${plan.startBlock},\n endBlock=${plan.endBlock},\n token=${plan.token},\n residualAmount=${plan.residualAmount}`);
         }
-
-        //let estimatedGas = await vestingContract.claimPayment.estimateGas(new BN('0'), {from: accounts[2]});
-        //console.log( `Estimate Gas claimPayment(): ${estimatedGas}` ); 
 
         let resClaimPayment = await vestingContract.claimPayment(new BN('0'), {from: accounts[2]});
         truffleAssert.eventEmitted(resClaimPayment, 'ClaimPayment', (ev) => {
@@ -761,7 +720,7 @@ contract("Vesting", async accounts =>{
         }
     });
 
-    it("-> claimPayment(): Claim current payment. Decline. Wrong index plan", async () => {
+    it("-> claimPayment(): Claim current payment. Fail. Wrong index plan", async () => {
         console.log( "\n claimPayment() >>" );
  
         let current = await time.latestBlock();
@@ -783,9 +742,6 @@ contract("Vesting", async accounts =>{
             let plan = await vestingContract.getPlan(accounts[2], i);
             console.log(`accounts[2] plan[${i}] :\n startBlock=${plan.startBlock},\n endBlock=${plan.endBlock},\n token=${plan.token},\n residualAmount=${plan.residualAmount}`);
         }
-
-//        let estimatedGas = await vestingContract.claimPayment.estimateGas(new BN('0'), {from: accounts[2]});
-//        console.log( `Estimate Gas claimPayment(): ${estimatedGas}` ); 
 
         let resClaimPayment = await vestingContract.claimPayment(countPlans+1, {from: accounts[2]});
         truffleAssert.eventEmitted(resClaimPayment, 'ClaimPayment', (ev) => {
@@ -825,7 +781,7 @@ contract("Vesting", async accounts =>{
 
         await token20.approve(vestingContract.address, PAID_AMOUNT, {from: accounts[1]});
 
-//        let estimatedGas = await vestingContract.addPaymentToPlan.estimateGas(accounts[2],  new BN('0'), new BN('1000000000000000000'), {from: accounts[1]});
+//        let estimatedGas = await vestingContract.addPaymentToPlan.estimateGas(accounts[2],  new BN('0'), PAID_AMOUNT, {from: accounts[1]});
 //        console.log( `Estimate Gas addPaymentToPlan(): ${estimatedGas}` ); 
         
         let resAddPlan = await vestingContract.addPaymentToPlan(accounts[2],  new BN('0'), PAID_AMOUNT, {from: accounts[1]});
